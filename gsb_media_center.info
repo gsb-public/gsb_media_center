@@ -1,0 +1,9 @@
+name = GSB Media Center
+description = "Creates our own media center look and feel."
+package = GSB
+core = 7.x
+dependencies[] = media
+files[] = includes/GSBMediaCenterDocument.inc
+files[] = includes/GSBMediaCenterImage.inc
+files[] = includes/GSBMediaCenterVideo.inc
+files[] = includes/GSBMediaCenterView.inc

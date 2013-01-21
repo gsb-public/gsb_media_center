@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Implements hook_views_api().
+ */
+function gsb_media_center_views_api($module, $api) {
+  if ($module == "views" && $api == "views_default") {
+    return array(
+      'version' => '3.0',
+      'path' => drupal_get_path('module', 'gsb_media_center') .'/includes',
+    );
+  }
+}
+
+/**
+ * Implements hook_forms().
+ */
+function gsb_media_center_forms() {
+  $forms['gsb_media_center_add_files_and_docs_upload'] = array(
+    'callback' => 'file_entity_add_upload',
+  );
+
+  $forms['gsb_media_center_add_image_upload'] = array(
+    'callback' => 'file_entity_add_upload',
+  );
+
+  $forms['gsb_media_center_add_video_upload'] = array(
+    'callback' => 'media_internet_add',
+  );
+
+  return $forms;
+}
