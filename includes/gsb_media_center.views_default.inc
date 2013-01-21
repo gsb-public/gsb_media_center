@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_views_default_views().
  */
-function mymodule_views_default_views() {
+function gsb_media_center_views_default_views() {
 
   $view = new view();
   $view->name = 'gsb_media_browser';
