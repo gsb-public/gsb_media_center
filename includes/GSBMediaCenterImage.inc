@@ -24,8 +24,7 @@ class GSBMediaCenterImage extends MediaBrowserPlugin {
     $build['form']['private_upload']['#weight'] = -2;
     $build['form']['actions']['#weight'] = -1;
 
-
-    //$build['form']['upload']['upload_button']['#access'] = FALSE;
+    $build['form']['upload']['upload_button']['#access'] = FALSE;
 
     if ($build['form']['#step'] == 1) {
       $info['view_name'] = 'gsb_media_browser';
@@ -43,7 +42,6 @@ class GSBMediaCenterImage extends MediaBrowserPlugin {
       $build['form']['upload_images']['fake_buttons']['#markup'] = $fake_buttons;
     }
 
-//dsm($build);
     return $build;
   }
 }
