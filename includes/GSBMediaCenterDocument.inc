@@ -17,7 +17,6 @@ class GSBMediaCenterDocument extends MediaBrowserPlugin {
 
     $build = array();
     $params = $this->params;
-    //dsm($params);
     $params['file_extensions'] = 'txt doc docx xls xlsx pdf ppt pptx pps odt ods odp zip';
 
     $build['form'] = drupal_get_form('gsb_media_center_add_files_and_docs_upload', $params);
