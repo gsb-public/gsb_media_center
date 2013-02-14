@@ -36,7 +36,7 @@ class GSBMediaCenterDocument extends MediaBrowserPlugin {
 
       $fake_buttons = '<div class="form-actions form-wrapper">';
       $fake_buttons .= l(t('Submit'), '', array('attributes' => array('class' => array('button', 'button-yes', 'fake-submit', $info['view_name'] . '--' . $info['view_display_id']))));
-       $fake_buttons .= l(t('Cancel'), '', array('attributes' => array('class' => array('button', 'button-no', 'fake-cancel', $info['view_name'] . '--' . $info['view_display_id']))));
+      $fake_buttons .= l(t('Cancel'), '', array('attributes' => array('class' => array('button', 'button-no', 'fake-cancel', $info['view_name'] . '--' . $info['view_display_id']))));
       $fake_buttons .= '</div>';
 
       $build['form']['browser']['fake_buttons']['#markup'] = $fake_buttons;
