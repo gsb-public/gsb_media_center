@@ -27,8 +27,51 @@ function gsb_media_center_views_default_views() {
   $handler->display->display_options['query']['options']['query_tags'] = array(
     0 => 'media_browser',
   );
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['bef'] = array(
+    'general' => array(
+      'allow_secondary' => 0,
+      'secondary_label' => 'Advanced options',
+    ),
+    'sort' => array(
+      'bef_format' => 'default',
+      'advanced' => array(
+        'collapsible' => 0,
+        'collapsible_label' => 'Sort options',
+        'combine' => 0,
+        'combine_rewrite' => '',
+        'reset' => 0,
+        'reset_label' => '',
+        'is_secondary' => 0,
+      ),
+    ),
+    'filename' => array(
+      'more_options' => array(
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+    'field_sections_tid' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 0,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+  );
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '12';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -90,6 +133,29 @@ function gsb_media_center_views_default_views() {
     'image' => 'image',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;
+  /* Filter criterion: File: Sections (field_sections) */
+  $handler->display->display_options['filters']['field_sections_tid']['id'] = 'field_sections_tid';
+  $handler->display->display_options['filters']['field_sections_tid']['table'] = 'field_data_field_sections';
+  $handler->display->display_options['filters']['field_sections_tid']['field'] = 'field_sections_tid';
+  $handler->display->display_options['filters']['field_sections_tid']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_sections_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['operator_id'] = 'field_sections_tid_op';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['label'] = 'Sections';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['operator'] = 'field_sections_tid_op';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['identifier'] = 'field_sections_tid';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['required'] = TRUE;
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_sections_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_sections_tid']['vocabulary'] = 'workbench_sections';
 
   /* Display: Images */
   $handler = $view->new_display('media_browser', 'Images', 'images');
@@ -132,6 +198,29 @@ function gsb_media_center_views_default_views() {
     'document' => 'document',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;
+  /* Filter criterion: File: Sections (field_sections) */
+  $handler->display->display_options['filters']['field_sections_tid']['id'] = 'field_sections_tid';
+  $handler->display->display_options['filters']['field_sections_tid']['table'] = 'field_data_field_sections';
+  $handler->display->display_options['filters']['field_sections_tid']['field'] = 'field_sections_tid';
+  $handler->display->display_options['filters']['field_sections_tid']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_sections_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['operator_id'] = 'field_sections_tid_op';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['label'] = 'Sections';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['operator'] = 'field_sections_tid_op';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['identifier'] = 'field_sections_tid';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['required'] = TRUE;
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_sections_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_sections_tid']['vocabulary'] = 'workbench_sections';
 
   /* Display: Videos */
   $handler = $view->new_display('media_browser', 'Videos', 'videos');
@@ -167,7 +256,29 @@ function gsb_media_center_views_default_views() {
     'video' => 'video',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;
-
+  /* Filter criterion: File: Sections (field_sections) */
+  $handler->display->display_options['filters']['field_sections_tid']['id'] = 'field_sections_tid';
+  $handler->display->display_options['filters']['field_sections_tid']['table'] = 'field_data_field_sections';
+  $handler->display->display_options['filters']['field_sections_tid']['field'] = 'field_sections_tid';
+  $handler->display->display_options['filters']['field_sections_tid']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_sections_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['operator_id'] = 'field_sections_tid_op';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['label'] = 'Sections';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['operator'] = 'field_sections_tid_op';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['identifier'] = 'field_sections_tid';
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['required'] = TRUE;
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_sections_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    5 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_sections_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_sections_tid']['vocabulary'] = 'workbench_sections';
 
   $views[$view->name] = $view;
   return $views;
