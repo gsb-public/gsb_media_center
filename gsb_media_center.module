@@ -35,7 +35,15 @@ function gsb_media_center_forms() {
  * Implements hook_form_alter().
  */
 function gsb_media_center_form_views_exposed_form_alter(&$form, &$form_state) {
-  if (isset($form['field_sections_tid']) && !empty($form_state['input']['live_preview'])) {
+  global $user;
+  if (isset($form['field_sections_tid']) && !isset($form_state['input']['sections_processed'])) {
+    dsm($user);
+    // Keeps track if we've already processed the section.
+    $form['sections_processed'] = array(
+      '#type' => 'hidden',
+      '#value' => TRUE,
+    );
+
     $new_default = array();
     foreach($form['field_sections_tid']['#options'] as $key => $value) {
       $new_default[$key] = $key;
