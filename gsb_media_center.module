@@ -32,25 +32,41 @@ function gsb_media_center_forms() {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_views_exposed_form_alter().
  */
 function gsb_media_center_form_views_exposed_form_alter(&$form, &$form_state) {
-  global $user;
-  if (isset($form['field_sections_tid']) && !isset($form_state['input']['sections_processed'])) {
-    dsm($user);
-    // Keeps track if we've already processed the section.
-    $form['sections_processed'] = array(
-      '#type' => 'hidden',
-      '#value' => TRUE,
-    );
-
+  // Make sure we are only messing with exposed forms with sections.
+  if (isset($form['field_sections_tid'])) {
     $new_default = array();
-    foreach($form['field_sections_tid']['#options'] as $key => $value) {
-      $new_default[$key] = $key;
+    global $user;
+    // If we don't have workbench_access data load it.
+    if (empty($user->workbench_access)) {
+      workbench_access_user_load_data($user);
     }
 
-    $form['field_sections_tid']['#default_value'] = $new_default;
-    $form_state['input']['field_sections_tid'] = $new_default;
+    // Loop through the available options.
+    foreach($form['field_sections_tid']['#options'] as $key => $value) {
+      // If the user has access add it to our input key.
+      // Otherwise remove it from the available options.
+      if (isset($user->workbench_access[$key])) {
+        $new_default[$key] = $key;
+      }
+      else {
+        unset($form['field_sections_tid']['#options'][$key]);
+      }
+    }
 
+    // We only need to set our input value if it's our first time through.
+    if (!isset($form_state['input']['sections_processed'])) {
+      // Keeps track if we've already processed the section.
+      $form['sections_processed'] = array(
+        '#type' => 'hidden',
+        '#value' => TRUE,
+      );
+
+      // Views requires us to not only set the form, but the form_state.
+      $form['field_sections_tid']['#default_value'] = $new_default;
+      $form_state['input']['field_sections_tid'] = $new_default;
+    }
   }
 }
