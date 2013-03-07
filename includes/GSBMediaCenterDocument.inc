@@ -20,13 +20,16 @@ class GSBMediaCenterDocument extends MediaBrowserPlugin {
     $params['file_extensions'] = 'txt doc docx xls xlsx pdf ppt pptx pps odt ods odp zip';
 
     $build['form']['document_upload'] = drupal_get_form('gsb_media_center_add_files_and_docs_upload', $params);
-    $build['form']['document_upload']['upload']['#weight'] = -3;
-    $build['form']['document_upload']['private_upload']['#weight'] = -2;
-    $build['form']['document_upload']['actions']['#weight'] = -1;
 
-    $build['form']['document_upload']['upload']['upload_button']['#access'] = FALSE;
-
+    // We need the current step put on the form portion of the array.
+    $build['form']['#step'] = $build['form']['document_upload']['#step'];
     if ($build['form']['document_upload']['#step'] == 1) {
+      $build['form']['document_upload']['upload']['#weight'] = -3;
+      $build['form']['document_upload']['private_upload']['#weight'] = -2;
+      $build['form']['document_upload']['actions']['#weight'] = -1;
+
+      $build['form']['document_upload']['upload']['upload_button']['#access'] = FALSE;
+
       $info['view_name'] = 'gsb_media_browser';
       $info['view_display_id'] = 'files_and_docs';
 
