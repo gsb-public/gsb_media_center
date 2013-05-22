@@ -32,6 +32,26 @@ function gsb_media_center_forms() {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter
+ */
+function gsb_media_center_form_gsb_media_center_add_video_upload_alter(&$form, &$form_state) {
+  if ($form_state['submitted'] && $form_state['triggering_element']['#id'] == 'edit-previous') {
+    drupal_add_js(drupal_get_path('module', 'gsb_media_center') . '/js/gsb_media_center_video_upload.js', 
+            array('weight' => 5 ));
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter
+ */
+function gsb_media_center_form_gsb_media_center_add_files_and_docs_upload_alter(&$form, &$form_state) {
+  if ($form_state['submitted'] && $form_state['triggering_element']['#id'] == 'edit-previous') {
+    drupal_add_js(drupal_get_path('module', 'gsb_media_center') . '/js/gsb_media_center_file_upload.js', 
+            array('weight' => 5 ));
+  }
+}
+
+/**
  * Implements hook_form_views_exposed_form_alter().
  */
 function gsb_media_center_form_views_exposed_form_alter(&$form, &$form_state) {
