@@ -1,21 +1,25 @@
 (function ($) {
   Drupal.behaviors.gsb_media_center = {
     attach: function () {
-      if ($('.media-widget .fid').val() != 0) {
-        $('.media-widget .button.launcher').hide();
-      }
-      $('.media-widget .fid').bind('change', function() {
-        var fidField = $(this).val();
-        var launcherButton = $('.media-widget .button.launcher');
-        if (fidField != 0) {
-          if (launcherButton.length) {
-            launcherButton.hide();
+      $('.media-widget').each(function () {
+        if ($('.fid', this).val() != 0) {
+          $('.button.launcher', this).hide();
+        }
+        var launcherButton = $('.button.launcher', this);
+        $('.fid', this).bind('change', function() {
+          var fidField = $(this).val();
+          if (fidField != 0) {
+            if (launcherButton.length) {
+              launcherButton.hide();
+            }
           }
-        }
-        else {
-          launcherButton.show();
-        }
+          else {
+            launcherButton.show();
+          }
+        });
       });
+      
+      
     }
   };
 })(jQuery);
