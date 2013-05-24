@@ -17,9 +17,7 @@
             launcherButton.show();
           }
         });
-      });
-      
-      
+      });  
     }
   };
 })(jQuery);

@@ -46,7 +46,7 @@ function gsb_media_center_element_info_alter(&$types) {
 function gsb_media_center_element_process(&$element, &$form_state, $form) {
   $fid = isset($element['#value']['fid']) ? $element['#value']['fid'] : 0;
   drupal_add_js(drupal_get_path('module', 'gsb_media_center') . '/js/gsb_media_center.js', array());
-  $element['#attached']['js'][] = drupal_get_path('module', 'gsb_media_center') . '/js/gsb_media_center.js';
+  drupal_add_js(drupal_get_path('module', 'gsb_media_center') . '/js/gsb_media_center_confirm_remove.js', array('weight' => -20));
   return $element;
 }
 
