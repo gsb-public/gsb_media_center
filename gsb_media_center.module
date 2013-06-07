@@ -63,6 +63,52 @@ function gsb_media_center_form_gsb_media_center_add_video_upload_alter(&$form, &
 /**
  * Implements hook_form_FORM_ID_alter
  */
+function gsb_media_center_form_media_format_form_alter(&$form, &$form_state) {
+
+  // We are limiting the formatting options based on the media types
+  // These lists show the options that will be displayed to the user for...
+  
+  // Options if media type == 'image'
+  $image_format_options = array(
+    'default',
+    'teaser',
+  );
+
+  // Options if media type == 'video'
+  $video_format_options = array(
+    'default',
+    'teaser',
+    'preview',
+  );
+
+  // Note no options will be shown if media type == 'document'
+  
+  if (isset($form['options']['format']['#options'])) {
+    foreach($form['options']['format']['#options'] as $format_option => $value) {
+      if ($form['#media']->type == 'image') {
+        if (!in_array($format_option, $image_format_options)) {
+          // remove options not supported for 'image'
+          unset($form['options']['format']['#options'][$format_option]);
+        }
+      }
+      if ($form['#media']->type == 'video') {
+        if (!in_array($format_option, $video_format_options)) {
+          // remove options not supported for 'video'
+          unset($form['options']['format']['#options'][$format_option]);
+        }
+      }
+      if ($form['#media']->type == 'document') {
+        // hide the option dropdown
+        $form['options']['format']['#access'] = FALSE;
+        break;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter
+ */
 function gsb_media_center_form_gsb_media_center_add_files_and_docs_upload_alter(&$form, &$form_state) {
   if ($form_state['submitted'] && $form_state['triggering_element']['#id'] == 'edit-previous') {
     drupal_add_js(drupal_get_path('module', 'gsb_media_center') . '/js/gsb_media_center_file_upload.js', 
