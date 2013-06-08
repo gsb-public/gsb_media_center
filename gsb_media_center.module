@@ -99,7 +99,12 @@ function gsb_media_center_form_media_format_form_alter(&$form, &$form_state) {
       }
       if ($form['#media']->type == 'document') {
         // hide the option dropdown
-        $form['options']['format']['#access'] = FALSE;
+        // note: changing the #access to FALSE didn't work,
+        // because it caused a javascript error in wysiwyg.js
+        // so... to keep this simple we are just hiding the format select
+        //$form['options']['format']['#access'] = FALSE;
+        $form['options']['format']['#prefix'] = '<span style="display: none;">';
+        $form['options']['format']['#suffix'] = '</span>';
         break;
       }
     }
