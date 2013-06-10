@@ -167,3 +167,40 @@ function gsb_media_center_form_views_exposed_form_alter(&$form, &$form_state) {
 function gsb_media_center_file_default_types_alter(&$types) {
   $types['document']->mimetypes[] = 'application/zip';
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter
+ */
+function gsb_media_center_form_file_entity_add_upload_alter(&$form, &$form_state) {
+  $form['#submit'] = array_merge($form['#submit'], array('gsb_media_center_file_entity_add_upload_submit'));
+  if (isset($form['actions']['previous']['#submit'])) {
+    $form['actions']['previous']['#submit'] = array_merge(
+      $form['actions']['previous']['#submit'],
+      array('gsb_media_center_file_entity_add_upload_submit')
+    );
+  }
+}
+
+/**
+ * Implements form submit callback
+ * this was implemented to skip step 3 scheme selection
+ */
+function gsb_media_center_file_entity_add_upload_submit($form, &$form_state) {
+  $trigger = $form_state['triggering_element']['#id'];
+  if (isset($form_state['step']) && $form_state['step'] == 3 && $trigger != 'edit-previous') {
+    $form_state['storage']['scheme'] = file_default_scheme();
+    $form_state['step'] = 4;
+  }
+  elseif (isset($form_state['step']) && $form_state['step'] == 3 && $trigger == 'edit-previous') {
+    $form_state['storage']['scheme'] = file_default_scheme();
+    $form_state['step'] = 2;
+    $file = file_load($form_state['storage']['upload']);
+    $candidates = file_entity_get_filetype_candidates($file);
+    if (count($candidates) == 1) {
+      $candidates_keys = array_keys($candidates);
+      // There is only one possible filetype for this file. Skip the second page.
+      $form_state['step'] = 1;
+      $form_state['storage']['type'] = reset($candidates_keys);
+    }
+  }
+}
