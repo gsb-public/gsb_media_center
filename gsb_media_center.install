@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_install
+ */
+function gsb_media_center_install() {
+  media_variable_set('wysiwyg_default_view_mode', 'wysiwyg_document');
+}
+
+/**
+ * Implements hook_update
+ */
+function gsb_media_center_update_7001() {
+  media_variable_set('wysiwyg_default_view_mode', 'wysiwyg_document');
+}
