@@ -109,6 +109,20 @@ function gsb_media_center_form_media_format_form_alter(&$form, &$form_state) {
       }
     }
   }
+  
+  //Adding title to the document link
+  $form['#attached']['js'][] = drupal_get_path('module', 'gsb_media_center') . '/js/gsb_media_center_file_title.js';
+  $setting = array();
+  $file = clone $form['#media'];
+  $file->filename = '-media_title-';
+  $file->field_title['und'][0]['value'] = '-media_title-';
+  $file = gsb_media_center_file_formatter_document_view($file);
+  $setting['media']['wysiwyg_document'] = render($file);
+
+  $form['#attached']['js'][] = array(
+    'type' => 'setting',
+    'data' => $setting,
+  );
 }
 
 /**
@@ -213,4 +227,80 @@ function gsb_media_center_entity_info_alter(&$entity_info) {
     'label' => t('Wysiwyg Document'),
     'custom settings' => FALSE,
   );
+}
+
+/**
+ * Implements hook_file_formatter_info().
+ */
+function gsb_media_center_file_formatter_info() {
+  // Add a simple file formatter for displaying an image in a chosen style.
+  if (module_exists('image')) {
+    $formatters['gsb_media_center_file_formatter_document'] = array(
+      'label' => t('GSB Document'),
+      'default settings' => array(
+        'title' => ''
+      ),
+      'view callback' => 'gsb_media_center_file_formatter_document_view',
+      'settings callback' => 'gsb_media_center_file_formatter_document_settings',
+    );
+    // Provide default token values.
+    if (module_exists('token')) {
+      $formatters['gsb_media_center_file_formatter_document']['default settings']['title'] = '[file:field_title]';
+    }
+    elseif (module_exists('entity_token')) {
+      $formatters['gsb_media_center_file_formatter_document']['default settings']['title'] = '[file:field-title]';
+    }
+  }
+
+  return $formatters;
+}
+
+/**
+ * Implements hook_file_formatter_FORMATTER_view().
+ *
+ * Returns a drupal_render() array to display a document with title taken from token.
+ */
+function gsb_media_center_file_formatter_document_view($file, $display = array(), $langcode = '') {
+  $element = array();
+  if (!$file->filesize) {
+    return;
+  }
+  if ($file->type == 'document') {
+    $replace_options = array(
+      'clear' => 1,
+      'sanitize' => 0,
+    );
+    if (isset($display['settings']['title'])) {
+      $title = token_replace($display['settings']['title'], array('file' => $file), $replace_options);
+    }
+    if (isset($title)) {
+      $file->filename = $title;
+    }
+    $element = array(
+      '#theme' => 'file_link',
+      '#file' => $file,
+    );
+  }
+  return $element;
+}
+
+function gsb_media_center_file_formatter_document_settings($form, &$form_state, $settings) {
+  // Allow the setting of the title.
+  $element['title'] = array(
+    '#title' => t('Link Title'),
+    '#description' => t('The text to use as title for the document link. Leave blank to use filename.'),
+    '#type' => 'textfield',
+    '#default_value' => $settings['title'],
+  );
+
+  if (module_exists('token')) {
+    $element['title']['#description'] .= t('This field supports tokens.');
+    $element['tokens'] = array(
+      '#theme' => 'token_tree',
+      '#token_types' => array('file'),
+      '#dialog' => TRUE,
+    );
+  }
+
+  return $element;
 }
