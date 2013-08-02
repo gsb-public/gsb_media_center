@@ -139,6 +139,7 @@ function gsb_media_center_form_gsb_media_center_add_files_and_docs_upload_alter(
  * Implements hook_form_views_exposed_form_alter().
  */
 function gsb_media_center_form_views_exposed_form_alter(&$form, &$form_state) {
+
   // Make sure we are only messing with exposed forms with sections.
   if (isset($form['field_sections_tid'])) {
     $new_default = array();
@@ -162,16 +163,17 @@ function gsb_media_center_form_views_exposed_form_alter(&$form, &$form_state) {
 
     // We only need to set our input value if it's our first time through.
     if (!isset($form_state['input']['sections_processed'])) {
-      // Keeps track if we've already processed the section.
-      $form['sections_processed'] = array(
-        '#type' => 'hidden',
-        '#value' => TRUE,
-      );
-
       // Views requires us to not only set the form, but the form_state.
       $form['field_sections_tid']['#default_value'] = $new_default;
       $form_state['input']['field_sections_tid'] = $new_default;
     }
+
+    // Keeps track if we've already processed the section.
+    $form['sections_processed'] = array(
+      '#type' => 'hidden',
+      '#value' => TRUE,
+    );
+
   }
 }
 
