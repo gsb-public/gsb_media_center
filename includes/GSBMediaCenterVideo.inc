@@ -14,6 +14,7 @@ class GSBMediaCenterVideo extends MediaBrowserPlugin {
    */
   public function view() {
     module_load_include('inc', 'file_entity', 'file_entity.pages');
+    module_load_include('inc', 'media_internet', 'media_internet.pages');
 
     $build = array();
     $params = $this->params;
