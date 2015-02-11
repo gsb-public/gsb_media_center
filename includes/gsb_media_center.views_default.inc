@@ -47,31 +47,42 @@ function gsb_media_center_views_default_views() {
       ),
     ),
     'filename' => array(
+      'bef_format' => 'default',
       'more_options' => array(
         'is_secondary' => 0,
+        'any_label' => '',
         'bef_filter_description' => '',
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
           ),
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
         ),
       ),
     ),
     'field_sections_tid' => array(
-      'bef_format' => 'bef',
+      'bef_format' => 'default',
       'more_options' => array(
         'bef_select_all_none' => 0,
         'bef_collapsible' => 0,
         'is_secondary' => 0,
+        'any_label' => '',
         'bef_filter_description' => '',
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
           ),
         ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
       ),
     ),
   );
+  $handler->display->display_options['exposed_form']['options']['input_required'] = 0;
+  $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'gsb_wysiwyg_text';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '12';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -91,7 +102,6 @@ function gsb_media_center_views_default_views() {
   $handler->display->display_options['fields']['filename']['label'] = '';
   $handler->display->display_options['fields']['filename']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['filename']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['filename']['link_to_file'] = TRUE;
   /* Sort criterion: File: Upload date */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'file_managed';
@@ -138,7 +148,33 @@ function gsb_media_center_views_default_views() {
   $handler->display->display_options['filters']['field_sections_tid']['table'] = 'field_data_field_sections';
   $handler->display->display_options['filters']['field_sections_tid']['field'] = 'field_sections_tid';
   $handler->display->display_options['filters']['field_sections_tid']['value'] = array(
-    1 => '1',
+    12256 => '12256',
+    13071 => '13071',
+    13186 => '13186',
+    26671 => '26671',
+    12461 => '12461',
+    13021 => '13021',
+    13046 => '13046',
+    13056 => '13056',
+    27251 => '27251',
+    27256 => '27256',
+    12946 => '12946',
+    13051 => '13051',
+    12396 => '12396',
+    12401 => '12401',
+    12406 => '12406',
+    12456 => '12456',
+    28606 => '28606',
+    12481 => '12481',
+    13191 => '13191',
+    13146 => '13146',
+    12956 => '12956',
+    12261 => '12261',
+    13001 => '13001',
+    13011 => '13011',
+    12421 => '12421',
+    13016 => '13016',
+    12416 => '12416',
   );
   $handler->display->display_options['filters']['field_sections_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_sections_tid']['expose']['operator_id'] = 'field_sections_tid_op';
@@ -150,9 +186,42 @@ function gsb_media_center_views_default_views() {
   $handler->display->display_options['filters']['field_sections_tid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
-    3 => 0,
-    5 => 0,
-    4 => 0,
+    11 => 0,
+    151 => 0,
+    16 => 0,
+    21 => 0,
+    71 => 0,
+    61 => 0,
+    171 => 0,
+    56 => 0,
+    66 => 0,
+    31 => 0,
+    36 => 0,
+    201 => 0,
+    41 => 0,
+    91 => 0,
+    146 => 0,
+    136 => 0,
+    26 => 0,
+    46 => 0,
+    51 => 0,
+    81 => 0,
+    86 => 0,
+    96 => 0,
+    101 => 0,
+    106 => 0,
+    116 => 0,
+    121 => 0,
+    126 => 0,
+    131 => 0,
+    141 => 0,
+    156 => 0,
+    161 => 0,
+    166 => 0,
+    176 => 0,
+    181 => 0,
+    186 => 0,
+    191 => 0,
   );
   $handler->display->display_options['filters']['field_sections_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_sections_tid']['vocabulary'] = 'workbench_sections';
